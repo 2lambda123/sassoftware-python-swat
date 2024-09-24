@@ -18,6 +18,7 @@ import subprocess
 import sys
 import tarfile
 from urllib.parse import quote
+from security import safe_requests
 
 
 if '--help' not in sys.argv and '-h' not in sys.argv:
@@ -47,7 +48,7 @@ def get_repo():
 
 def get_release(tag_name):
     ''' Retrieve the upload URL for the given tag '''
-    res = requests.get(
+    res = safe_requests.get(
         'https://api.github.com/repos/{}/releases/tags/{}'.format(get_repo(), tag_name),
         headers=dict(Authorization='token {}'.format(GITHUB_TOKEN),
                      Accept='application/vnd.github.v3+json'))

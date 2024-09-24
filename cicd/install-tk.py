@@ -29,6 +29,7 @@ import requests
 import subprocess
 import sys
 import zipfile
+from security import safe_requests
 
 # Name of the package that contains C extensions
 TK_PACKAGE_NAME = 'caspythnclnt'
@@ -216,7 +217,7 @@ def get_packages(lib_root, tk_base, release, platform, pkgs, versions_only=False
 
             print_err(url)
 
-            resp = requests.get(url, allow_redirects=True)
+            resp = safe_requests.get(url, allow_redirects=True)
 
             if not py_versions:
                 py_versions = [x.replace('.', '')
