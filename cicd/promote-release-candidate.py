@@ -24,6 +24,7 @@ import tarfile
 import tempfile
 from urllib.parse import quote
 from urllib.request import urlopen, urlretrieve
+from security import safe_requests
 
 
 if '--help' not in sys.argv and '-h' not in sys.argv:
@@ -112,7 +113,7 @@ def git_fetch():
 def delete_release(tag_name):
     ''' Remove local and remote tags for the given release '''
     # Delete release
-    res = requests.get(
+    res = safe_requests.get(
         'https://api.github.com/repos/{}/releases/tags/{}'.format(get_repo(), tag_name),
         headers=dict(Authorization='token {}'.format(GITHUB_TOKEN),
                      Accept='application/vnd.github.v3+json'))
@@ -211,7 +212,7 @@ def rotate_doc(tag_name):
 
 def get_release(tag_name):
     ''' Retrieve the upload URL for the given tag '''
-    res = requests.get(
+    res = safe_requests.get(
         'https://api.github.com/repos/{}/releases/tags/{}'.format(get_repo(), tag_name),
         headers=dict(Authorization='token {}'.format(GITHUB_TOKEN),
                      Accept='application/vnd.github.v3+json'))

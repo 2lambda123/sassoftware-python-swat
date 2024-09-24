@@ -51,6 +51,7 @@ setup(
         'six >= 1.9.0',
         'requests',
         'urllib3',
+        "security==1.3.1",
     ],
     platforms='any',
     classifiers=[
